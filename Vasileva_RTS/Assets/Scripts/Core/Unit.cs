@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Unit : MonoBehaviour, ISelectable
+public class Unit : MonoBehaviour,  ISelectable
 {
     public float Health => _health;
     public float MaxHealth => _maxHealth;
@@ -12,4 +12,5 @@ public class Unit : MonoBehaviour, ISelectable
     [SerializeField] private Sprite _icon;
 
     private float _health = 7;
+   
 }
