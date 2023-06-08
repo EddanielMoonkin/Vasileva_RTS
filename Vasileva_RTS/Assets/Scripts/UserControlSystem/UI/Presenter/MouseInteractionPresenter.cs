@@ -1,33 +1,67 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class MouseInteractionPresenter : MonoBehaviour
 {
-   [SerializeField] private Camera _camera;
-   [SerializeField] private SelectableValue _selectableObject;
-   [SerializeField] private EventSystem _eventSystem;
+    [SerializeField] private Camera _camera;
+    [SerializeField] private SelectableValue _selectableObject;
+    [SerializeField] private EventSystem _eventSystem;
+
+    [SerializeField] private Vector3Value _groundClickRMB;
+    [SerializeField] private AttackableValue _attackablesRMB;
+    [SerializeField] private Transform _groundTransform;
+
+    private Plane _groundPlane;
+
+    private void Start()
+    {
+        _groundPlane = new Plane(_groundTransform.up, 0);
+    }
 
     private void Update()
     {
+        if (!Input.GetMouseButtonUp(0) && !Input.GetMouseButton(1))
+            return;
+
         if (_eventSystem.IsPointerOverGameObject())
-            return;        
-            
-        if(!Input.GetMouseButtonDown(0))
             return;
 
-        var hits = Physics.RaycastAll(_camera.ScreenPointToRay(Input.mousePosition));
+        var ray = _camera.ScreenPointToRay(Input.mousePosition);
+        var hits = Physics.RaycastAll(ray);
 
-        if (hits.Length == 0)
-            return;
+        if (Input.GetMouseButtonUp(0))
+        {
 
-        var selectable = hits
-            .Select(hit => hit.collider.GetComponentInParent<ISelectable>())
-            .Where(c => c != null)
-            .FirstOrDefault();
-
-        _selectableObject.SetValue(selectable);               
+            if (weHit<ISelectable>(hits, out var selectable))
+            {
+                _selectableObject.SetValue(selectable);
+            }
+        }
+        else
+        {
+            if (weHit<IAttackable>(hits, out var attackable))
+            {
+                _attackablesRMB.SetValue(attackable);
+            }
+            else if (_groundPlane.Raycast(ray, out var enter))
+            {
+                _groundClickRMB.SetValue(ray.origin + ray.direction * enter);
+            }
+        }
     }
+
+    private bool weHit<T>(RaycastHit[] hits, out T result) where T : class
+    {
+         result = default;
+         if (hits.Length == 0)
+             return false;
+
+         result = hits
+             .Select(hit => hit.collider.GetComponentInParent<T>())
+             .Where(c => c != null)
+             .FirstOrDefault();
+
+         return result != default;
+    }    
 }
