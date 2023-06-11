@@ -3,7 +3,11 @@ guid: 504d3648f525da84dbb50b64709dbadd
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - _legacyContext: {fileID: 11400000, guid: 40a692e63b3a52349908d61b33fdfe4c, type: 2}
+  - _groundClicksRMB: {fileID: 11400000, guid: 1aa7bd4a0e487134e915ab209d81efca, type: 2}
+  - _attackablesRMB: {fileID: 11400000, guid: bb50f7c490b340a4e9f5e1ad0b11208f, type: 2}
+  - _selectables: {fileID: 11400000, guid: a9d59b2bd88dcb84abb36113aa8f8d4f, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
