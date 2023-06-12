@@ -1,5 +1,6 @@
 using UnityEngine;
 using Zenject;
+using System;
 
 [CreateAssetMenu(fileName = "AssetsInstaller", menuName = "Installers/AssetsInstaller")]
 public class AssetsInstaller : ScriptableObjectInstaller<AssetsInstaller>
@@ -11,6 +12,7 @@ public class AssetsInstaller : ScriptableObjectInstaller<AssetsInstaller>
 
     public override void InstallBindings()
     {
+        Container.Bind<IObservable<ISelectable>>().FromInstance(_selectables);
         Container.Bind<IAwaitable<IAttackable>>()
            .FromInstance(_attackablesRMB);
         Container.Bind<IAwaitable<Vector3>>()
