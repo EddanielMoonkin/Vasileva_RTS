@@ -10,11 +10,9 @@ public class UIModelInstaller : MonoInstaller
 
     public override void InstallBindings()
     {
-        /*Container.Bind<IAwaitable<IAttackable>>()
-           .FromInstance(_attackableValue);
-        Container.Bind<IAwaitable<Vector3>>()
-           .FromInstance(_vector3Value);*/
-        
+        Container.Bind<float>().WithId("Chomper").FromInstance(5f);
+        Container.Bind<string>().WithId("Chomper").FromInstance("Chomper");
+
         Container.Bind<AssetsContext>().FromInstance(_legacyContext);
         Container.Bind<Vector3Value>().FromInstance(_vector3Value);
         Container.Bind<AttackableValue>().FromInstance(_attackableValue);
@@ -27,5 +25,6 @@ public class UIModelInstaller : MonoInstaller
         Container.Bind<CommandCreatorBase<IStopCommand>>().To<StopCommandCreator>().AsTransient();
 
         Container.Bind<CommandButtonsModel>().AsTransient();
+        Container.Bind<BottomCenterModel>().AsTransient(); 
     }
 }
