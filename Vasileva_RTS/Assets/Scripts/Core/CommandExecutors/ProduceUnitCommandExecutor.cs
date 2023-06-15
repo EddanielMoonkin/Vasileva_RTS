@@ -1,6 +1,9 @@
 using UniRx;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using UnityEngine.UI;
+using System.Threading.Tasks;
+using Zenject;
 
 public class ProduceUnitCommandExecutor : CommandExecutorBase<IProduceUnitCommand>, IUnitProducer
 {
@@ -8,6 +11,9 @@ public class ProduceUnitCommandExecutor : CommandExecutorBase<IProduceUnitComman
 
     [SerializeField] private Transform _unitsParent;
     [SerializeField] private int _maximumUnitsInQueue = 6;
+    [SerializeField] private Button _produceUnitButton;
+
+    [Inject] private DiContainer _diContainer;
 
     private ReactiveCollection<IUnitProductionTask> _queue = new ReactiveCollection<IUnitProductionTask>();
 
@@ -23,7 +29,8 @@ public class ProduceUnitCommandExecutor : CommandExecutorBase<IProduceUnitComman
         if(innerTask.TimeLeft < 0)
         {
             removeTaskAtIndex(0);
-            Instantiate(innerTask.UnitPrefab, new Vector3(Random.Range(-10, 10), 0, Random.Range(-10, 10)), Quaternion.identity, _unitsParent);
+            _diContainer.InstantiatePrefab(innerTask.UnitPrefab, new Vector3(Random.Range(-10, 10), 0, Random.Range(-10, 10)), Quaternion.identity, _unitsParent);
+            _produceUnitButton.enabled = true;
         }
     }
 
@@ -38,8 +45,16 @@ public class ProduceUnitCommandExecutor : CommandExecutorBase<IProduceUnitComman
         _queue.RemoveAt(_queue.Count - 1);
     }
 
-    public override void ExecuteSpecificCommand(IProduceUnitCommand command)
-    {
+    public override async Task ExecuteSpecificCommand(IProduceUnitCommand command) //was public override void
+    {       
         _queue.Add(new UnitProductionTask(command.ProductionTime, command.Icon, command.UnitPrefab, command.UnitName));
+
+        if (_queue.Count == 5)
+        {
+            Debug.Log("Queue is full");
+            _produceUnitButton.enabled = false;
+            
+        }
+
     }
 }

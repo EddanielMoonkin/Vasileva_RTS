@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Unit : MonoBehaviour,  ISelectable, IAttackable
+public class Unit : MonoBehaviour, IUnit, ISelectable, IAttackable
 {
     public float Health => _health;
     public float MaxHealth => _maxHealth;
