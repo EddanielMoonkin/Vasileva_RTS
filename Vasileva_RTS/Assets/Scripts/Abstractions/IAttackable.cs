@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IAttackable : IHealthHolder
 {
-    
+    void ReceiveDamage(int amount);
 }

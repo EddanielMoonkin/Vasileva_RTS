@@ -11,7 +11,8 @@ public class MoveCommandExecutor : CommandExecutorBase<IMoveCommand>
 
     public override async Task ExecuteSpecificCommand(IMoveCommand command)
     {
-        GetComponent<NavMeshAgent>().destination = command.Target;
+        NavMeshAgent _navMesh = GetComponent<NavMeshAgent>();
+        _navMesh.destination = command.Target;
         _animator.SetTrigger(Animator.StringToHash("Walk"));
         _stopCommandExecutor.CancellationTokenSource = new CancellationTokenSource();
 
@@ -27,8 +28,9 @@ public class MoveCommandExecutor : CommandExecutorBase<IMoveCommand>
         }
         catch
         {
-            GetComponent<NavMeshAgent>().isStopped = true;
-            GetComponent<NavMeshAgent>().ResetPath();
+            _navMesh.enabled = true;
+            _navMesh.isStopped = true;
+            _navMesh.ResetPath();
         }
         _stopCommandExecutor.CancellationTokenSource = null;
         _animator.SetTrigger(Animator.StringToHash("Idle"));

@@ -99,6 +99,9 @@ GameObject:
   - component: {fileID: 6963466989145080953}
   - component: {fileID: -5176783135741141526}
   - component: {fileID: -1688154312484866658}
+  - component: {fileID: 3256623867204018980}
+  - component: {fileID: 4824791625193273773}
+  - component: {fileID: 4824791625193273782}
   m_Layer: 0
   m_Name: MainBuilding
   m_TagString: Untagged
@@ -181,7 +184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 089f6230846e6654c8be03bbef89e1f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unitsParent: {fileID: 4824791626009866841}
+  _unitsParent: {fileID: 0}
   _maximumUnitsInQueue: 6
   _produceUnitButton: {fileID: 0}
 --- !u!114 &6963466989145080953
@@ -226,6 +229,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92d2c064f3be89844b5ce1c21d0b08fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3256623867204018980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4824791625526724952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 148399d4bd93e12409ee2d3fead3a13e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _factionId: 1
+--- !u!114 &4824791625193273773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4824791625526724952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb80d5fc483f5724db0e01bc49ff77f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4824791625193273782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4824791625526724952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 089f6230846e6654c8be03bbef89e1f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _unitsParent: {fileID: 0}
+  _maximumUnitsInQueue: 6
+  _produceUnitButton: {fileID: 0}
 --- !u!1 &4824791626354365439
 GameObject:
   m_ObjectHideFlags: 0
