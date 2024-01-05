@@ -16,7 +16,12 @@ public class Unit : MonoBehaviour, IUnit, ISelectable, IAttackable, IDamageDeale
 
     public int Damage => _damage;
 
-    private float _health = 100;
+    private float _health;
+
+    private void Start()
+    {
+        _health = _maxHealth;
+    }
 
     public void ReceiveDamage(int amount)
     {
@@ -26,6 +31,24 @@ public class Unit : MonoBehaviour, IUnit, ISelectable, IAttackable, IDamageDeale
         if (_health <= 0)
             Destroy(gameObject);
 
+    }
+
+    private void OnTriggerEnter(Collider coll)
+    {
+        if (coll.tag == "AttackBuff")
+        {
+            _damage += 10;
+            Debug.Log($"Damage increased to {this._damage}");
+        }
+    }
+
+    private void OnTriggerExit(Collider coll)
+    {
+        if (coll.tag == "AttackBuff")
+        {
+            _damage -= 10;
+            Debug.Log($"Damage decreased to {this._damage}");
+        }
     }
 
 }
